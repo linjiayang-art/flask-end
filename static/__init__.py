@@ -7,9 +7,7 @@ from flask_cors import CORS
 import  logging
 from logging import  FileHandler
 from logging.handlers import SMTPHandler, RotatingFileHandler
-#from static.apis.v3 import api_v3
 from static.apis.v1 import api_v1
-#from static.apis.v2 import api_v2
 from flask_login import login_user
 from static.factory import  generate_filenname_log
 from flask_wtf.csrf import CSRFError

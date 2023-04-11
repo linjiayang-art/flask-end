@@ -1,0 +1,1 @@
+from static.apis.v1.mytest import start

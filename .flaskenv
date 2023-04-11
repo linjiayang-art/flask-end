@@ -1,0 +1,2 @@
+FLASK_APP=static
+FLASK_DEBUG=1

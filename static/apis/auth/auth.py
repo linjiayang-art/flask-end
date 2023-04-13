@@ -5,7 +5,7 @@ from itsdangerous import  BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from static.models import User
  
-from auth.errors import api_abort, invalid_token, token_missing
+from  static.apis.auth.errors import api_abort, invalid_token, token_missing
 
 #创建token
 def generate_token(user):

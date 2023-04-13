@@ -14,6 +14,8 @@ from flask_wtf.csrf import CSRFError
 from static.settings import config
 from static.extensions import db,login_manager,csrf,mail
 from static.models import *
+from static.blueprints.auth import auth_bp
+
 
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
@@ -93,6 +95,7 @@ def register_extensions(app):
     mail.init_app(app)
 
 def register_blueprints(app):
+    app.register_blueprint(auth_bp,url_prefix= '/auth') #注册蓝图
     #app.register_blueprint(basicinfo_bp ,url_prefix= '/basicinfo') #注册蓝图
     #app.register_blueprint(auth_bp,url_prefix='/auth')
     app.register_blueprint(api_v1,url_prefix='/api/v1')

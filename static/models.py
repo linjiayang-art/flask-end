@@ -6,14 +6,14 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'sys_user'
-    userid = db.Column(db.BigInteger, primary_key=True)
+    userid = db.Column(db.Integer, primary_key=True)
+    userno = db.Column(db.Integer)
+    password = db.Column(db.String(256))
     username = db.Column(db.String(50))
     perms = db.Column(db.String(128))
-    userno = db.Column(db.Integer)
-    password = db.Column(db.String(128))
     departMentId = db.Column(db.String(50))
     userRole = db.Column(db.String(50))
-    isDeleted = db.Column(db.Boolean, default=False)
+    isdeleted = db.Column(db.Boolean, default=False)
     # consumableLog=db.relationship('ConsumableLog',lazy=False)
     def set_password(self, password):
         self.password = generate_password_hash(password)

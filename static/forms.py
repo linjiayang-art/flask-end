@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,DateField,DateTimeField,SelectMultipleField,SubmitField,FieldList,IntegerField, validators
-from wtforms.validators import DataRequired,length
+from wtforms.validators import DataRequired,Length
 
 
-class UserFrom(FlaskForm):
-    pass
-
+class LoginFrom(FlaskForm):
+    username=StringField('username',validators=[DataRequired(),Length(1,20)])
+    password=StringField('password',validators=[DataRequired(),Length(1,128)])
+    
 class RoleFrom(FlaskForm):
     parent_id=StringField('parent_id',validators=[DataRequired()])
     menu_name=StringField('menu_name',validators=[DataRequired()])

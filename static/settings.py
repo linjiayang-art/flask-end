@@ -1,5 +1,5 @@
 import os
-
+from static.extensions import db
 basedir=os.path.abspath(os.path.dirname(__file__))
 
 
@@ -48,6 +48,7 @@ class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'
     WTF_CSRF_ENABLED = False
+
 
 
 config = {

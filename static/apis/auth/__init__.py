@@ -1,0 +1,1 @@
+from static.apis.auth import auth

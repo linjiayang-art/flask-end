@@ -25,6 +25,7 @@ class AuthTokenAPI(MethodView):
         token,expiration =generate_token(user)
         csrf_token = generate_csrf(secret_key=current_app.config['SECRET_KEY'])
         data= {
+                'Authorization':token,
                 'access_token':token,
                 'statusText':expiration,
                 'csrf_token':csrf_token

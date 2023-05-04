@@ -5,14 +5,14 @@ from itsdangerous import  BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from static.models import User
  
-from  static.apis.auth.errors import api_abort, invalid_token, token_missing
+from static.apis.auth.errors import api_abort, invalid_token, token_missing
 
 #创建token
 def generate_token(user):
     expiration=3600
     s=Serializer(current_app.config['SECRET_KEY'])
     #验证修改为字典传输
-    data={'id':user.userid}
+    data={'id':user.id}
     token=s.dumps(data)
     #token=s.dumps({'id':user.Userid}).decode('ascii')
     return(token,expiration)

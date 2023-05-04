@@ -6,7 +6,7 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'sys_user'
-    userid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     userno = db.Column(db.Integer)
     password = db.Column(db.String(256))
     username = db.Column(db.String(50))

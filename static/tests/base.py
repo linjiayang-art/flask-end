@@ -60,10 +60,12 @@ class BaseAPITestCase(unittest.TestCase):
             password='123456'
         ))
         data=response.get_json()
-        return data['access_token']
+        #return data['access_token']
+        return data['data']['access_token']
     def set_auth_headers(self, token):
         return {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': token,
+            #'Authorization': 'Bearer ' + token,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
@@ -78,7 +80,7 @@ class BaseAPITestCase(unittest.TestCase):
         self.assertIn('access_token', data['data'])    
         self.assertIn('statusText', data['data']) 
         self.assertIn('csrf_token', data['data']) 
-        self.assertIn('access_token', data['data']['access_token'])   
+        self.assertIn('access_token', data['data'])   
 
     def test_erro_get_token(self):
         response = self.client.post(url_for('api_v1.token'), data=dict(

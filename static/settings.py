@@ -12,8 +12,8 @@ class BaseConfig:
     #SQLALCHEMY_BINDS={ 'sicore':'mysql://Sicore@2022:20220529@172.16.3.179/sicore',
                        #'assets':"mssql+pymssql://ITTest:it123456@172.16.2.8/Assets?charset=utf8"}
     SECRET_KEY = os.getenv('SECRET_KEY', 'a secret string')
-    JSON_AS_ASCII = False
-
+    #JSON_AS_ASCII = False
+    ensure_ascii= False
     #Mail
     MAIL_SERVER='smtp.exmail.qq.com'
     #MAIL_USE_SSL=True

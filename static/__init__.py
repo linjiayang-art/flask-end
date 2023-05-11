@@ -111,6 +111,10 @@ def register_errors(app):
     def internal_server_error(e):
         return ('errors/500.html'), 500
     
+    @app.errorhandler(404)
+    def internal_server_error(e):
+        return jsonify(code='404',msg='The requested URL was not found on the server.', data='erro'), 404
+    
     '''@app.errorhandler(Exception)
     def handle_csrf_error(e):
         app.logger.warning(e)

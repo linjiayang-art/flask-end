@@ -105,3 +105,10 @@ class BaseAPITestCase(unittest.TestCase):
         self.assertIn('msg', data)
         self.assertIn(data['code'],'201') 
         self.assertIn('表单',data['msg']) 
+
+    def test_logout(self):
+        response=self.client.delete(url_for('api_v1.logout'))
+        data=response.get_json()
+        self.assertEqual(response.status_code, 401)
+        self.assertIn('code', data)
+        self.assertIn(data['code'],'A230') 

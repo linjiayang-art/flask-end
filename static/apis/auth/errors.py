@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify,make_response
 from werkzeug.http import HTTP_STATUS_CODES
 
 from static.apis.v1 import api_v1
@@ -10,21 +10,21 @@ def api_abort(code, message=None, **kwargs):
 
     response = jsonify(code=code, message=message, **kwargs)
     response.status_code = code
-    return  jsonify(code='A230',msg='登录信息失效,请重新登录', data='')
+    return  make_response( jsonify(code='A230',msg='登录信息失效,请重新登录'), 401) 
     return response  # You can also just return (response, code) tuple
 
 
 def invalid_token():
     response = api_abort(401, error='invalid_token', error_description='Either the token was expired or invalid.')
     response.headers['WWW-Authenticate'] = 'Bearer'
-    return  jsonify(code='A230',msg='登录信息失效,请重新登录', data='')
+    return  make_response( jsonify(code='A230',msg='登录信息失效,请重新登录'), 401) 
     return response
 
 
 def token_missing():
     response = api_abort(401)
     response.headers['WWW-Authenticate'] = 'Bearer'
-    return  jsonify(code='A230',msg='登录信息失效,请重新登录', data='')
+    return  make_response( jsonify(code='A230',msg='登录信息失效,请重新登录'), 401) 
     return response
 
 

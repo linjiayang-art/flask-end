@@ -3,9 +3,13 @@ from functools import wraps
 
 from itsdangerous import  BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
+
+from itsdangerous.timed import TimedSerializer
 from static.models import User
  
 from static.apis.auth.errors import api_abort, invalid_token, token_missing
+
+
 
 #创建token
 def generate_token(user):
@@ -21,7 +25,7 @@ def generate_token(user):
 def validate_token(token):
     s=Serializer(current_app.config['SECRET_KEY'])
     try:
-        data=s.loads(token)
+        data=s.loads(token,max_age=3600)
     except (BadSignature,SignatureExpired):
         return False
     user=User.query.get(data['id'])

@@ -7,7 +7,7 @@ from static.models import User
 from flask_wtf.csrf import generate_csrf
 import datetime
 from static.forms import LoginFrom
-
+from flask_login import logout_user
 
 class AuthTokenAPI(MethodView):
     decorators = [csrf.exempt]
@@ -79,6 +79,11 @@ class AuthTokenAPIv2(MethodView):
 
         }
         return jsonify(code='200', msg='登录成功', data=data, success=True)
+
+@api_v1.route('auth/logout',methods=['DELETE'])
+def logout():
+    logout_user()
+    return make_response(jsonify(code="A230",msg="token无效或已过期") ,401) 
 
 
 api_v1.add_url_rule(

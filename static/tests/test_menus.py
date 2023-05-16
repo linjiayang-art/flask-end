@@ -5,6 +5,7 @@ from static.extensions import db
 
 
 class MenuBaseData():
+    '''provide for test model basedata'''
     menu1=Menu(id=1,  parent_id=0,menu_name='系统管理',menu_type='MENU',
                           menu_path='/system',component='Layout',
                           menu_visible=0,

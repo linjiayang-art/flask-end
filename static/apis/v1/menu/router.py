@@ -58,12 +58,8 @@ def _getmockdata() -> list:
                 },
             },
 
-         
         ]
     },
-   
- 
-
 ]
 
     return router

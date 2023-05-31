@@ -2,19 +2,27 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from static.extensions import db
 from flask_login import UserMixin
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, DateTime,BigInteger
+from sqlalchemy.orm import relationship,DeclarativeBase
+
+class Base():
+    createuser = Column(String(50))
+    createdate = Column(DateTime, default=datetime.utcnow)
+    isdeleted = Column(Boolean, default=False)
 
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin,Base):
     __tablename__ = 'sys_user'
-    id = db.Column(db.Integer, primary_key=True)
-    userno = db.Column(db.Integer)
-    password = db.Column(db.String(256))
-    username = db.Column(db.String(50))
-    perms = db.Column(db.String(128))
-    departMentId = db.Column(db.String(50))
-    userRole = db.Column(db.String(50))
-    isdeleted = db.Column(db.Boolean, default=False)
-    # consumableLog=db.relationship('ConsumableLog',lazy=False)
+    id = Column(Integer, primary_key=True)
+    userno = Column(Integer)
+    password = Column(String(256))
+    username = Column(String(50))
+    perms = Column(String(128))
+    department_id = Column(String(50))
+    user_role = Column(String(50))
+    avatar=Column(String(255),default='https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+
+    # consumableLog=relationship('ConsumableLog',lazy=False)
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -22,83 +30,77 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
 
-class DePartMent(db.Model):
+class DePartMent(db.Model, Base):
     __tablename__ = 'sys_department'
-    id = db.Column(db.Integer, primary_key=True)
-    departmentName = db.Column(db.String(50))
-    departmentNo = db.Column(db.String(50))
-    createTime = db.Column(db.DateTime, default=datetime.utcnow)
-    createUser = db.Column(db.String(50))
-    isDeleted = db.Column(db.Boolean, default=False)
+    id = Column(Integer, primary_key=True)
+    department_name = Column(String(50))
+    department_no = Column(String(50))
+
 
 #system
-class Menu(db.Model):
+class Menu(db.Model, Base):
     __tablename__='sys_menu'
-    id = db.Column(db.BigInteger, primary_key=True)
-    parent_id = db.Column(db.BigInteger)
-    menu_path = db.Column(db.String(80))
-    component = db.Column(db.String(80))
-    redirect_url = db.Column(db.String(80))
-    menu_name = db.Column(db.String(80))  #title
-    menu_icon = db.Column(db.String(80))
-    menu_type = db.Column(db.String(80))
-    menu_visible = db.Column(db.Boolean, default=True)
-    menu_perm = db.Column(db.String(80))
-    menu_sort = db.Column(db.BigInteger)
-    isdeleted= db.Column(db.Boolean, default=False)
+    id = Column(BigInteger, primary_key=True)
+    parent_id = Column(BigInteger)
+    menu_path = Column(String(80))
+    component = Column(String(80))
+    redirect_url = Column(String(80))
+    menu_name = Column(String(80))  #title
+    menu_icon = Column(String(80))
+    menu_type = Column(String(80))
+    menu_visible = Column(Boolean, default=True)
+    menu_perm = Column(String(80))
+    menu_sort = Column(BigInteger)
 
-class SYSRole(db.Model):
+
+class SYSRole(db.Model, Base):
     __tablename__ = 'sys_role'
-    id = db.Column(db.Integer, primary_key=True)
-    rolename = db.Column(db.String(50))
-    code = db.Column(db.String(50))
-    sort = db.Column(db.String(50))
-    rolestatus = db.Column(db.Boolean, default=True)
-    createTime = db.Column(db.DateTime, default=datetime.utcnow)
-    createUser = db.Column(db.String(50))
-    isDeleted = db.Column(db.Boolean, default=False)
+    id = Column(Integer, primary_key=True)
+    rolename = Column(String(50))
+    code = Column(String(50))
+    sort = Column(String(50))
+    rolestatus = Column(Boolean, default=True)
 
-class SysRoleMenu(db.Model):
+
+class SysRoleMenu(db.Model, Base):
     __tablename__='sys_role_menu'
-    id=db.Column(db.BigInteger,primary_key=True)
-    role_id=db.Column(db.BigInteger)
-    menu_id=db.Column(db.BigInteger)
+    id=Column(BigInteger,primary_key=True)
+    role_id=Column(BigInteger)
+    menu_id=Column(BigInteger)
     #relationship
-    #role_id=db.Column(db.BigInteger,db.ForeignKey('sys_role.id'))
-    #menu_id=db.Column(db.BigInteger,db.ForeignKey('sys_menu.id'))
-    #sys_role=db.relationship('SYSRole')
-    #sys_menu=db.relationship('Menu')
+    #role_id=Column(BigInteger,ForeignKey('sys_role.id'))
+    #menu_id=Column(BigInteger,ForeignKey('sys_menu.id'))
+    #sys_role=relationship('SYSRole')
+    #sys_menu=relationship('Menu')
 
-class SysUserRole(db.Model):
+class SysUserRole(db.Model, Base):
     __tablename__='sys_user_role'
-    id=db.Column(db.BigInteger,primary_key=True)
+    id=Column(BigInteger,primary_key=True)
     #relationship
-    user_id=db.Column(db.BigInteger,)
-    role_id=db.Column(db.BigInteger,)
-    #user_id=db.Column(db.BigInteger,db.ForeignKey('sys_user.userid'))
-    #role_id=db.Column(db.BigInteger,db.ForeignKey('sys_role.id'))
-    #sys_user=db.relationship('User')
-    #sys_role=db.relationship('SYSRole')
+    user_id=Column(BigInteger,)
+    role_id=Column(BigInteger,)
+    #user_id=Column(BigInteger,ForeignKey('sys_user.userid'))
+    #role_id=Column(BigInteger,ForeignKey('sys_role.id'))
+    #sys_user=relationship('User')
+    #sys_role=relationship('SYSRole')
 
 
 #dict
-class DictType(db.Model):
+class DictType(db.Model, Base):
     __tablename__='sys_dict_type'
-    id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(50))
-    code=db.Column(db.String(50))
-    status=db.Column(db.Boolean, default=True)
-    remark=db.Column(db.String(50))
-    createtime=db.Column(db.DateTime, default=datetime.utcnow)
+    id=Column(Integer,primary_key=True)
+    name=Column(String(50))
+    code=Column(String(50))
+    status=Column(Boolean, default=True)
+    remark=Column(String(50))
 
-class DictItem(db.Model):
+
+class DictItem(db.Model, Base):
     __tablename__='sys_dict_item'
-    id=db.Column(db.Integer,primary_key=True)
-    type_code=db.Column(db.String(50))
-    type_id=db.Column(db.String(50))
-    name=db.Column(db.String(50))
-    value=db.Column(db.String(50))
-    status=db.Column(db.Boolean, default=True)
-    createtime=db.Column(db.DateTime, default=datetime.utcnow)
-    createuser=db.Column(db.String(50))
+    id=Column(Integer,primary_key=True)
+    type_code=Column(String(50))
+    type_id=Column(String(50))
+    name=Column(String(50))
+    value=Column(String(50))
+    status=Column(Boolean, default=True)
 

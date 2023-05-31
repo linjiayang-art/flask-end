@@ -8,6 +8,7 @@ class UserInfoApi(MethodView):
     decorators=[auth_required]
     def get(sefl):
         userinfo= g.current_user
+        
         perms=[ "sys:user:edit", 
                 "sys:user:delete"] 
         if userinfo.perms=='y':
@@ -22,7 +23,7 @@ class UserInfoApi(MethodView):
             roles.append('USER')
         user={'roles':roles,
             'introduction':'I am a super administrator ',
-            'avatar': 'https://s2.loli.net/2022/04/07/gw1L2Z5sPtS8GIl.gif',
+            'avatar': userinfo.avatar,
             'nickname':userinfo.username,
             'perms':perms,
             'userId':userinfo.id,

@@ -12,6 +12,10 @@ class BaseConfig:
     #SQLALCHEMY_BINDS={ 'sicore':'mysql://Sicore@2022:20220529@172.16.3.179/sicore',
                        #'assets':"mssql+pymssql://ITTest:it123456@172.16.2.8/Assets?charset=utf8"}
     SECRET_KEY = os.getenv('SECRET_KEY', 'a secret string')
+    
+    SQLALCHEMY_POOL_SIZE=10
+
+    SQLALCHEMY_POOL_RECYCLE=60
     #deprecation json_as_ascii
     JSON_AS_ASCII = False
     #ensure_ascii= True

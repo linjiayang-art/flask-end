@@ -9,14 +9,16 @@ import datetime
 from static.forms import LoginFrom
 from flask_login import logout_user
 
+
 class AuthTokenAPI(MethodView):
     decorators = [csrf.exempt]
+
     def post(self):
         # print(request.get_json())
         form = LoginFrom()
         if form.validate_on_submit():
             userno = form.userno.data
-            password=form.password.data
+            password = form.password.data
             user = User.query.filter_by(userno=userno).first()
             if user is None or not user.validate_password(password):
                 return jsonify(code='B0001', msg='用户不存在或者密码错误', data='用户不存在或者密码错误')
@@ -54,11 +56,10 @@ class AuthTokenAPIv2(MethodView):
                 'userno': '123456',
                 'password': '123456'
             }
-
-        # grant_type = request.form.get('grent_type')
+       # grant_type = request.form.get('grent_type')
         if not formdata:
             return make_response(jsonify(code='201', msg='未获取到表单数据'), 200)
-        userno = '123456'
+        userno = '555'
         password = '123456'
         if userno is None or password is None:
             return jsonify(code='201', msg='未获取到表单数据', data='未获取到表单数据')
@@ -80,10 +81,10 @@ class AuthTokenAPIv2(MethodView):
         }
         return jsonify(code='200', msg='登录成功', data=data, success=True)
 
-@api_v1.route('auth/logout',methods=['DELETE'])
+@api_v1.route('auth/logout', methods=['DELETE'])
 def logout():
     logout_user()
-    return make_response(jsonify(code="A230",msg="token无效或已过期") ,401) 
+    return make_response(jsonify(code="A230", msg="token无效或已过期") ,401) 
 
 
 api_v1.add_url_rule(

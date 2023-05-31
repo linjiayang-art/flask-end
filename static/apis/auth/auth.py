@@ -1,12 +1,9 @@
 from flask import g,current_app,request
 from functools import wraps
-
 from itsdangerous import  BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
-
-from itsdangerous.timed import TimedSerializer
 from static.models import User
- 
+from static.extensions import db
 from static.apis.auth.errors import api_abort, invalid_token, token_missing
 
 
@@ -28,7 +25,8 @@ def validate_token(token):
         data=s.loads(token,max_age=3600)
     except (BadSignature,SignatureExpired):
         return False
-    user=User.query.get(data['id'])
+    user=db.session.get(User,data['id'])
+    #user=User.query.get(data['id'])
     if user is None:
         return False
     g.current_user =user #将用户对象储存到G上

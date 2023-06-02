@@ -47,16 +47,9 @@ class AuthTokenAPI(MethodView):
 
 class AuthTokenAPIv2(MethodView):
     decorators = [csrf.exempt]
-
     def post(self):
-        try:
-            formdata = request.get_json()
-        except:
-            formdata = {
-                'userno': '123456',
-                'password': '123456'
-            }
-       # grant_type = request.form.get('grent_type')
+        formdata = request.get_json()
+        #grant_type = request.form.get('grent_type')
         if not formdata:
             return make_response(jsonify(code='201', msg='未获取到表单数据'), 200)
         userno = '555'
@@ -77,7 +70,6 @@ class AuthTokenAPIv2(MethodView):
             'csrf_token': csrf_token,
             'tokenType': 'Bearer',
             'expires': expiration
-
         }
         return jsonify(code='200', msg='登录成功', data=data, success=True)
 

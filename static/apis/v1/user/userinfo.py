@@ -8,7 +8,6 @@ class UserInfoApi(MethodView):
     decorators=[auth_required]
     def get(sefl):
         userinfo= g.current_user
-        
         perms=[ "sys:user:edit", 
                 "sys:user:delete"] 
         if userinfo.perms=='y':

@@ -17,7 +17,7 @@ class BaseConfig:
 
     SQLALCHEMY_POOL_RECYCLE=60
     #deprecation json_as_ascii
-    JSON_AS_ASCII = False
+    #JSON_AS_ASCII = False
     #ensure_ascii= True
     #Mail
     MAIL_SERVER='smtp.exmail.qq.com'

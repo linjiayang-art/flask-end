@@ -1,8 +1,8 @@
 from static.extensions import db
-from static.models import UserInfo,SYS_Role,Menu
+from static.models import User,Menu
 
 def fake_admin():
-    admin=UserInfo(
+    admin=User(
         userno='555',
         username='lin yang',
     )

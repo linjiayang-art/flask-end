@@ -26,6 +26,7 @@ def create_app(config_name=None):
     app = Flask('static')
     app.config.from_object(config[config_name])
 
+
     LOG_DIR=os.path.join(basedir, 'logs')
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
@@ -41,6 +42,7 @@ def create_app(config_name=None):
     register_blueprints(app)
     register_errors(app)
     register_shell_context(app)
+    app.ensure_ascii=True
     return app
 
 def register_logging(app):
@@ -57,8 +59,6 @@ def register_logging(app):
     formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s-%(message)s')
 
 
-    #basedir='D:/aaa/VUE3'
-    #basedir=app.root_path
     filename =  generate_filenname_log('txt')
     file_handler = RotatingFileHandler(os.path.join(basedir, 'logs/%s'%filename),
                                        maxBytes=10 * 1024 * 1024, backupCount=10)
@@ -96,8 +96,6 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(auth_bp,url_prefix= '/auth') #注册蓝图
-    #app.register_blueprint(basicinfo_bp ,url_prefix= '/basicinfo') #注册蓝图
-    #app.register_blueprint(auth_bp,url_prefix='/auth')
     app.register_blueprint(api_v1,url_prefix='/api/v1')
     #app.register_blueprint(api_v2,url_prefix='/api/v2')
     #app.register_blueprint(api_v3,url_prefix='/api/v3')

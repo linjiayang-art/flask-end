@@ -1,0 +1,27 @@
+{
+  "schedule": {
+    "日期": "start_date",
+    "阶段": "pd_process",
+    "申请人": "applicant",
+    "类别": "product_type",
+    "产品型号": "product_model",
+    "晶圆系类": "waferlot",
+    "批次": "lot",
+    "Die": "die",
+    "数量": "qty",
+    "用途": "pd_use",
+    "备注": "remark"
+  },
+
+  "store": {
+    "产品名称": "product_type",
+    "产品型号": "product_model",
+    "批次": "lot",
+    "数量": "qty",
+    "编号": "pd_number",
+    "仓库名称": "warehouse",
+    "库位": "warehouse_location",
+    "入库人": "create_user",
+    "入库类型": "store_in_type"
+  }
+}

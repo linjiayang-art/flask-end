@@ -2,7 +2,7 @@ from static.apis.v1 import api_v1
 from flask import jsonify, g
 from flask.views import MethodView
 from static.apis.auth.auth import auth_required
-from static.models import SysUserRole
+from static.models.sysmodel import SysUserRole
 
 
 class RouterInfoApi(MethodView):

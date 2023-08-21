@@ -2,7 +2,7 @@ from static.apis.v1 import api_v1
 from flask import jsonify, g,request,make_response
 from flask.views import MethodView
 from static.apis.auth.auth import auth_required
-from static.models import Menu
+from static.models.sysmodel import Menu
 from static.factory import to_dict
 from static.extensions import db
 from static.forms import MenuForm

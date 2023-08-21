@@ -1,6 +1,7 @@
 from static.tests.base import BaseAPITestCase
 from flask import url_for
-from static.models import User, Menu
+from static.models.usermodel import User
+from static.models.sysmodel import Menu
 from static.extensions import db
 
 

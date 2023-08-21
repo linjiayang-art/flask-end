@@ -3,12 +3,12 @@ from flask import jsonify, request, g, make_response, current_app
 from static.apis.auth.auth import generate_token
 from flask.views import MethodView
 from static.extensions import csrf, db
-from static.models import User
+from static.models.usermodel import User
 from flask_wtf.csrf import generate_csrf
 import datetime
 from static.forms import LoginFrom
 from flask_login import logout_user
-
+from sqlalchemy import select
 
 class AuthTokenAPI(MethodView):
     decorators = [csrf.exempt]
@@ -57,8 +57,11 @@ class AuthTokenAPIv2(MethodView):
         if userno is None or password is None:
             return jsonify(code='201', msg='未获取到表单数据', data='未获取到表单数据')
         user = User.query.filter_by(userno=userno).first()
-        if user is None or not user.validate_password(password):
-            return jsonify(code='B0001', msg='用户不存在或者密码错误', data='用户不存在或者密码错误')
+        user = db.session.execute(select(User).filter_by(userno=userno).scalar())
+        if user is None :
+            return jsonify(code='B0001', msg='用户不存在', data='用户不存在或者密码错误')
+        if user.validate_password(password):
+            return jsonify(code='B0001', msg='密码错误', data='用户不存在或者密码错误')
         if user.isdeleted == True:
             return jsonify(code='B0001', msg='用户失效,请联系管理员', data='用户失效,请联系管理员')
         token, expiration = generate_token(user)

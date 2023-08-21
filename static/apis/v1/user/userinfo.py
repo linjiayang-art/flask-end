@@ -2,7 +2,7 @@ from static.apis.v1 import api_v1
 from flask import jsonify,g,make_response
 from flask.views import MethodView
 from static.apis.auth.auth import auth_required
-from static.models import SysUserRole,SYSRole
+from static.models.sysmodel import SysUserRole,SYSRole
 
 class UserInfoApi(MethodView):
     decorators=[auth_required]

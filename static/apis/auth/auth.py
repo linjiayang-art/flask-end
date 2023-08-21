@@ -2,7 +2,7 @@ from flask import g,current_app,request
 from functools import wraps
 from itsdangerous import  BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
-from static.models import User
+from static.models.usermodel import User
 from static.extensions import db
 from static.apis.auth.errors import api_abort, invalid_token, token_missing
 

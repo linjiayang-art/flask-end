@@ -13,8 +13,8 @@ mail=Mail()
 
 @login_manager.user_loader
 def load_user(user_id):
-    from static.models import UserInfo
-    user = UserInfo.query.get(user_id)
+    from static.models.usermodel import User
+    user = db.session.get(User, int(user_id))
     return user
 
 """ @login_manager.user_loader

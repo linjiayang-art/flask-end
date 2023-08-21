@@ -4,7 +4,7 @@ from flask import url_for
 
 from static import create_app
 from static.extensions import db
-from static.models import User
+from static.models.usermodel import User
 from static.forms import LoginFrom
 from static.factory import to_dict
 class BaseTestCase(unittest.TestCase):

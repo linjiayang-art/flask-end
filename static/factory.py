@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from flask import current_app, g
-from static.models import User
+from static.models.usermodel import User
 from static.extensions import db
 from pandas import ExcelWriter
 import pandas as pd
